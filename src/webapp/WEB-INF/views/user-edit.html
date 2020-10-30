@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${add} ? 'Create a User' : 'Edit a User'"></title>
+</head>
+<body>
+    <h1 th:text="${add} ? 'Create a User:' : 'Edit a User:'"></h1>
+    <a th:href="@{/users}">Back to Users</a>
+    <br/><br/>
+
+    <form th:action="${add} ? @{/users/add} : @{/users/{userId}/edit(userId=${user.id})}"
+          th:object="${user}" method="POST">
+        <table border="0">
+            <tr th:if="${user.id}">
+                <td>ID</td>
+                <td>:</td>
+                <td th:utext="${user.id}">...</td>
+            </tr>
+            <tr>
+                <td>First name</td>
+                <td>:</td>
+                <td><label>
+                    <input type="text" th:field="*{firstName}" />
+                </label></td>
+            </tr>
+            <tr>
+                <td>Last name</td>
+                <td>:</td>
+                <td><label>
+                    <input type="text" th:field="*{lastName}" />
+                </label></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>:</td>
+                <td><label>
+                    <input type="text" th:field="*{email}" />
+                </label></td>
+            </tr>
+        </table>
+        <input type="submit" th:value="${add} ? 'Create' : 'Update'" />
+    </form>
+</body>
+</html>

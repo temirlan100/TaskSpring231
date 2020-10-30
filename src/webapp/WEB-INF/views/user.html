@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+    <h1>View User</h1>
+    <a th:href="@{/users}">Back to users</a>
+    <br/><br/>
+
+    <div th:if="${user}">
+        <table border="0">
+            <tr>
+                <td>ID</td>
+                <td>:</td>
+                <td th:utext="${user.id}">...</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>:</td>
+                <td th:utext="${user.getFirstName()}">...</td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td>:</td>
+                <td th:utext="${user.getLastName()}">...</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>:</td>
+                <td th:utext="${user.getEmail()}">...</td>
+            </tr>
+        </table>
+        <br/><br/>
+
+        <div th:if="not ${allowDelete}">
+            <a th:href="@{/users/{userId}/edit(userId=${user.id})}">Edit</a> |
+            <a th:href="@{/users/{userId}/delete(userId=${user.id})}">Delete</a>
+        </div>
+
+        <form th:if="${allowDelete}" th:action="@{/users/{userId}/delete(userId=${user.id})}" method="POST">
+            Delete this contact? <input type="submit" th:value="Yes" />
+        </form>
+    </div>
+</body>
+</html>
