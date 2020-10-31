@@ -13,8 +13,6 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private final int ROW_PER_PAGE = 2;
-
     @Autowired
     private UsersService userService;
 
@@ -28,18 +26,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/users")
-    public String getContacts(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNumber) {
-        List<Users> users = userService.findAllUsers(pageNumber, ROW_PER_PAGE);
-
-        Long count = userService.countAllUsers();
-        boolean hasPrev = pageNumber > 1;
-        boolean hasNext = (pageNumber * ROW_PER_PAGE) < count;
-
-        model.addAttribute("users", users);
-        model.addAttribute("hasPrev", hasPrev);
-        model.addAttribute("prev", pageNumber - 1);
-        model.addAttribute("hasNext", hasNext);
-        model.addAttribute("next", pageNumber + 1);
+    public String getContacts(Model model) {
+        model.addAttribute("users", userService.findAllUsers());
 
         return "users";
     }

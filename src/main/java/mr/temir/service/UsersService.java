@@ -7,13 +7,11 @@ import java.util.List;
 public interface UsersService {
     Users findUserById(Long id);
 
-    List<Users> findAllUsers(int pageNumber, int rowPerPage);
+    List<Users> findAllUsers();
 
     Users saveUser(Users user);
 
     void updateUser(Users user);
 
     void deleteUserById(Long id);
-
-    Long countAllUsers();
 }
